@@ -11,7 +11,7 @@
       --text: #f5f5f5;
       --accent: #3d3d3d;
       --highlight: #2e8b57;
-      --glow: #00ffc8;
+      --today: #00ff88;
     }
 
     body {
@@ -46,24 +46,16 @@
       background-color: var(--card);
       border-radius: 12px;
       padding: 1.2rem 1rem;
-      border-left: 4px solid var(--accent);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      border-left: 4px solid var(--accent);
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.5s forwards;
-      position: relative;
-      transition: 0.3s ease;
     }
 
     .card.today {
-      border-left: 4px solid var(--glow);
-      box-shadow: 0 0 15px var(--glow), 0 0 25px var(--glow);
-      animation: glow 1.5s infinite alternate;
-    }
-
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px var(--glow); }
-      100% { box-shadow: 0 0 20px var(--glow); }
+      border-left: 4px solid var(--today);
+      box-shadow: 0 0 15px var(--today);
     }
 
     .card:nth-child(1) { animation-delay: 0.1s; }
@@ -103,40 +95,45 @@
 <body>
   <h1>Jadwal Piket Mingguan</h1>
   <div class="grid">
-    <div class="card" data-day="0">
+    <div class="card" data-hari="Sabtu">
+      <div class="hari">Sabtu</div>
+      <div class="nama">Risal, Trisna, Ibnu</div>
+    </div>
+    <div class="card" data-hari="Minggu">
       <div class="hari">Minggu</div>
       <div class="nama">Ahmad, Kidut, Jangkung</div>
     </div>
-    <div class="card" data-day="1">
+    <div class="card" data-hari="Senin">
       <div class="hari">Senin</div>
       <div class="nama">Ahmad, Ardi, Risal</div>
     </div>
-    <div class="card" data-day="2">
+    <div class="card" data-hari="Selasa">
       <div class="hari">Selasa</div>
       <div class="nama">Tanto, Trisna, Kidut</div>
     </div>
-    <div class="card" data-day="3">
+    <div class="card" data-hari="Rabu">
       <div class="hari">Rabu</div>
       <div class="nama">Jangkung, Ibnu, Insan</div>
     </div>
-    <div class="card" data-day="4">
+    <div class="card" data-hari="Kamis">
       <div class="hari">Kamis</div>
       <div class="nama">Tanto, Ardi, Insan</div>
     </div>
-    <div class="card" data-day="5">
+    <div class="card" data-hari="Jum'at">
       <div class="hari">Jum'at</div>
       <div class="nama">Semuanya</div>
-    </div>
-    <div class="card" data-day="6">
-      <div class="hari">Sabtu</div>
-      <div class="nama">Risal, Trisna, Ibnu</div>
     </div>
   </div>
 
   <script>
-    const today = new Date().getDay(); // 0 = Minggu, 1 = Senin, ..., 6 = Sabtu
+    const hariMap = [
+      "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"
+    ];
+    const today = new Date().getDay();
+    const hariIni = hariMap[today];
+
     document.querySelectorAll('.card').forEach(card => {
-      if (parseInt(card.dataset.day) === today) {
+      if (card.dataset.hari === hariIni) {
         card.classList.add('today');
       }
     });
