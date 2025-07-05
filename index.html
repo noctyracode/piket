@@ -114,103 +114,120 @@
       color: var(--today);
     }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.6rem;
+    /* ===== Popup Style ===== */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      background-color: var(--card);
+      border: 2px solid var(--today);
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px var(--today);
+      z-index: 999;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup p {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--today);
+      text-shadow: 0 0 5px var(--today);
+    }
+
+    .popup.hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
       }
     }
   </style>
 </head>
 <body>
+  <div class="popup" id="popup">
+    <p>YANG BUAT PIKET BANG TANTO</p>
+  </div>
+
   <h1>Jadwal Piket Mingguan</h1>
   <div class="grid">
+    <!-- Semua card seperti sebelumnya -->
     <div class="card" data-hari="Sabtu">
       <div class="hari">Sabtu</div>
       <div class="nama">
-        <ul>
-          <li>Risal</li>
-          <li>Trisna</li>
-          <li>Ibnu</li>
-        </ul>
+        <ul><li>Risal</li><li>Trisna</li><li>Ibnu</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Minggu">
       <div class="hari">Minggu</div>
       <div class="nama">
-        <ul>
-          <li>Ahmad</li>
-          <li>Kidut</li>
-          <li>Jangkung</li>
-        </ul>
+        <ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Senin">
       <div class="hari">Senin</div>
       <div class="nama">
-        <ul>
-          <li>Ahmad</li>
-          <li>Ardi</li>
-          <li>Risal</li>
-        </ul>
+        <ul><li>Ahmad</li><li>Ardi</li><li>Risal</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Selasa">
       <div class="hari">Selasa</div>
       <div class="nama">
-        <ul>
-          <li>Tanto</li>
-          <li>Trisna</li>
-          <li>Kidut</li>
-        </ul>
+        <ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Rabu">
       <div class="hari">Rabu</div>
       <div class="nama">
-        <ul>
-          <li>Jangkung</li>
-          <li>Ibnu</li>
-          <li>Insan</li>
-        </ul>
+        <ul><li>Jangkung</li><li>Ibnu</li><li>Insan</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Kamis">
       <div class="hari">Kamis</div>
       <div class="nama">
-        <ul>
-          <li>Tanto</li>
-          <li>Ardi</li>
-          <li>Insan</li>
-        </ul>
+        <ul><li>Tanto</li><li>Ardi</li><li>Insan</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Jum'at">
       <div class="hari">Jum'at</div>
       <div class="nama">
-        <ul>
-          <li>Semuanya</li>
-        </ul>
+        <ul><li>Semuanya</li></ul>
       </div>
     </div>
   </div>
 
   <footer>
-    <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama sudah dibagi dengan pertimbangan adil dan merata.  
-    Kalau masih ada yang bilang ini asal-asalan, mungkin belum lihat prosesnya.  
-    Dan kalau merasa keberatan... ya silakan nginep sendiri di hotel atau ngekost — tapi jangan ngerecokin sistem yang udah jalan.</p>
+    <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama dibagi adil dan sistematis.  
+    Kalau merasa berat, silakan nginep di hotel atau kost sendiri — jangan ganggu sistem yang udah jalan.</p>
   </footer>
 
   <script>
-    const hariMap = [
-      "Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"
-    ];
+    // Highlight hari ini
+    const hariMap = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
     const today = new Date().getDay();
     const hariIni = hariMap[today];
-
     document.querySelectorAll('.card').forEach(card => {
       if (card.dataset.hari === hariIni) {
         card.classList.add('today');
       }
+    });
+
+    // Popup muncul otomatis dan hilang setelah 3 detik
+    window.addEventListener("DOMContentLoaded", () => {
+      const popup = document.getElementById("popup");
+      setTimeout(() => {
+        popup.classList.add("hidden");
+      }, 3000);
     });
   </script>
 </body>
