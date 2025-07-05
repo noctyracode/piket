@@ -6,56 +6,59 @@
   <title>Jadwal Piket</title>
   <style>
     :root {
-      --bg: #121212;
-      --card: #1d1d1d;
-      --text: #f1f1f1;
-      --accent: #333;
-      --highlight: #2ecc71;
-      --today: #00c875;
+      --bg: #0e0e0e;
+      --card: #1b1b1b;
+      --text: #ffffff;
+      --border: #444;
+      --today: #ffffff;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
-      padding: 2rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin-bottom: 2rem;
-      color: var(--highlight);
+      font-weight: 600;
+      color: var(--text);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
       width: 100%;
-      max-width: 900px;
+      max-width: 1100px;
     }
 
     .card {
       background: var(--card);
-      border-left: 4px solid var(--accent);
-      border-radius: 8px;
-      padding: 1rem 1rem;
-      transition: 0.2s ease;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border-left: 4px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
     }
 
     .card.today {
-      border-left: 4px solid var(--today);
+      border-left-color: var(--today);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
     }
 
     .hari {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: var(--highlight);
+      margin-bottom: 0.6rem;
+      color: var(--text);
     }
 
     .nama ul {
@@ -67,98 +70,147 @@
     .nama li {
       font-size: 0.95rem;
       color: #ccc;
+      margin-bottom: 0.3rem;
     }
 
     footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
       color: #aaa;
-      text-align: center;
-      max-width: 700px;
-      line-height: 1.5;
-      border-top: 1px solid var(--accent);
+      border-top: 1px solid #333;
       padding-top: 1rem;
+      text-align: center;
+      max-width: 800px;
+      line-height: 1.5;
     }
 
-    /* Popup */
-    .popup {
+    /* ===== Popup Styling ===== */
+    .popup-overlay {
       position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1e1e1e;
-      color: var(--today);
-      border: 1px solid var(--today);
-      padding: 0.8rem 1.2rem;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      z-index: 999;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
 
-    .popup.hidden {
+    .popup-box {
+      background: var(--card);
+      color: var(--text);
+      padding: 1.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      position: relative;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .popup-box p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 1.2rem;
+      color: #999;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .hidden {
       display: none;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="popup" id="popup">YANG BUAT PIKET BANG TANTO</div>
+  <!-- Popup -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-box">
+      <button class="popup-close" onclick="closePopup()">✖</button>
+      <p>YANG BUAT PIKET BANG TANTO</p>
+    </div>
+  </div>
 
   <h1>Jadwal Piket Mingguan</h1>
   <div class="grid">
     <div class="card" data-hari="Sabtu">
       <div class="hari">Sabtu</div>
-      <div class="nama"><ul><li>Risal</li><li>Trisna</li><li>Ibnu</li></ul></div>
+      <div class="nama">
+        <ul><li>Risal</li><li>Trisna</li><li>Ibnu</li></ul>
+      </div>
     </div>
     <div class="card" data-hari="Minggu">
       <div class="hari">Minggu</div>
-      <div class="nama"><ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul></div>
+      <div class="nama">
+        <ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul>
+      </div>
     </div>
     <div class="card" data-hari="Senin">
       <div class="hari">Senin</div>
-      <div class="nama"><ul><li>Ahmad</li><li>Ardi</li><li>Risal</li></ul></div>
+      <div class="nama">
+        <ul><li>Ahmad</li><li>Ardi</li><li>Risal</li></ul>
+      </div>
     </div>
     <div class="card" data-hari="Selasa">
       <div class="hari">Selasa</div>
-      <div class="nama"><ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul></div>
+      <div class="nama">
+        <ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul>
+      </div>
     </div>
     <div class="card" data-hari="Rabu">
       <div class="hari">Rabu</div>
-      <div class="nama"><ul><li>Jangkung</li><li>Ibnu</li><li>Insan</li></ul></div>
+      <div class="nama">
+        <ul><li>Jangkung</li><li>Ibnu</li><li>Insan</li></ul>
+      </div>
     </div>
     <div class="card" data-hari="Kamis">
       <div class="hari">Kamis</div>
-      <div class="nama"><ul><li>Tanto</li><li>Ardi</li><li>Insan</li></ul></div>
+      <div class="nama">
+        <ul><li>Tanto</li><li>Ardi</li><li>Insan</li></ul>
+      </div>
     </div>
     <div class="card" data-hari="Jum'at">
       <div class="hari">Jum'at</div>
-      <div class="nama"><ul><li>Semuanya</li></ul></div>
+      <div class="nama">
+        <ul><li>Semuanya</li></ul>
+      </div>
     </div>
   </div>
 
   <footer>
-    <p><strong>Note:</strong> Jadwal ini disusun dengan adil.  
-    Kalau ada yang bilang ini asal-asalan, mungkin belum tahu prosesnya.  
-    Kalau merasa berat, ya silakan ngekost atau tidur di hotel, Bang.</p>
+    <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama dibagi adil & sistematis.  
+    Kalau keberatan, silakan piket sendiri atau nginep di tempat lain.</p>
   </footer>
 
   <script>
+    // Highlight hari ini
     const hariMap = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
     const today = new Date().getDay();
     const hariIni = hariMap[today];
-
     document.querySelectorAll('.card').forEach(card => {
       if (card.dataset.hari === hariIni) {
         card.classList.add('today');
       }
     });
 
-    // Tampilkan popup lalu hilangkan otomatis
-    window.addEventListener("DOMContentLoaded", () => {
-      const popup = document.getElementById("popup");
-      setTimeout(() => popup.classList.add("hidden"), 2500);
-    });
+    // Tutup popup
+    function closePopup() {
+      document.getElementById("popup").classList.add("hidden");
+    }
   </script>
-
 </body>
 </html>
