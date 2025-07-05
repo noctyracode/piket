@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jadwal Piket Mingguan</title>
+  <style>
+    :root {
+      --bg: #111;
+      --card: #1c1c1c;
+      --text: #f0f0f0;
+      --border: #333;
+      --accent: #555;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    .jadwal {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      padding: 1rem;
+      border-radius: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .hari {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .nama {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Jadwal Piket Mingguan</h1>
+  <div class="jadwal">
+    <div class="card">
+      <div class="hari">Sabtu</div>
+      <div class="nama">Risal, Trisna, Ibnu</div>
+    </div>
+    <div class="card">
+      <div class="hari">Minggu</div>
+      <div class="nama">Ahmad, Kidut, Jangkung</div>
+    </div>
+    <div class="card">
+      <div class="hari">Senin</div>
+      <div class="nama">Ahmad, Ardi, Risal</div>
+    </div>
+    <div class="card">
+      <div class="hari">Selasa</div>
+      <div class="nama">Tanto, Trisna, Kidut</div>
+    </div>
+    <div class="card">
+      <div class="hari">Rabu</div>
+      <div class="nama">Jangkung, Ibnu, Insan</div>
+    </div>
+    <div class="card">
+      <div class="hari">Kamis</div>
+      <div class="nama">Tanto, Ardi, Insan</div>
+    </div>
+    <div class="card">
+      <div class="hari">Jum'at</div>
+      <div class="nama">Semuanya</div>
+    </div>
+  </div>
+</body>
+</html>
