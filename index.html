@@ -7,228 +7,158 @@
   <style>
     :root {
       --bg: #121212;
-      --card: #1e1e1e;
-      --text: #f5f5f5;
-      --accent: #3d3d3d;
+      --card: #1d1d1d;
+      --text: #f1f1f1;
+      --accent: #333;
       --highlight: #2ecc71;
-      --today: #00ff99;
+      --today: #00c875;
     }
 
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
+      padding: 2rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2rem 1rem;
-      min-height: 100vh;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       margin-bottom: 2rem;
-      font-weight: 700;
       color: var(--highlight);
-      text-shadow: 0 0 5px var(--highlight);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
       width: 100%;
-      max-width: 1100px;
+      max-width: 900px;
     }
 
     .card {
       background: var(--card);
-      border-radius: 14px;
-      padding: 1.5rem 1.2rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-      border-left: 5px solid var(--accent);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transform: translateY(25px);
-      animation: fadeInUp 0.5s forwards;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(0, 255, 160, 0.1);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 1rem 1rem;
+      transition: 0.2s ease;
     }
 
     .card.today {
-      border-left-color: var(--today);
-      box-shadow: 0 0 20px var(--today);
-    }
-
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
-    .card:nth-child(4) { animation-delay: 0.4s; }
-    .card:nth-child(5) { animation-delay: 0.5s; }
-    .card:nth-child(6) { animation-delay: 0.6s; }
-    .card:nth-child(7) { animation-delay: 0.7s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      border-left: 4px solid var(--today);
     }
 
     .hari {
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       font-weight: bold;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
       color: var(--highlight);
-      text-transform: uppercase;
     }
 
     .nama ul {
       list-style: disc;
-      padding-left: 1.5rem;
+      padding-left: 1.2rem;
       margin: 0;
     }
 
     .nama li {
       font-size: 0.95rem;
-      color: #dcdcdc;
-      margin-bottom: 0.3rem;
+      color: #ccc;
     }
 
     footer {
-      margin-top: 3rem;
-      font-size: 0.95rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
       color: #aaa;
+      text-align: center;
+      max-width: 700px;
+      line-height: 1.5;
       border-top: 1px solid var(--accent);
       padding-top: 1rem;
-      text-align: center;
-      max-width: 800px;
-      line-height: 1.6;
     }
 
-    footer strong {
-      color: var(--today);
-    }
-
-    /* ===== Popup Style ===== */
+    /* Popup */
     .popup {
       position: fixed;
-      top: 50%;
+      top: 20px;
       left: 50%;
-      transform: translate(-50%, -50%) scale(1);
-      background-color: var(--card);
-      border: 2px solid var(--today);
-      padding: 1.5rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 0 20px var(--today);
-      z-index: 999;
-      text-align: center;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .popup p {
-      margin: 0;
-      font-size: 1.1rem;
-      font-weight: bold;
+      transform: translateX(-50%);
+      background: #1e1e1e;
       color: var(--today);
-      text-shadow: 0 0 5px var(--today);
+      border: 1px solid var(--today);
+      padding: 0.8rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      z-index: 999;
     }
 
     .popup.hidden {
       display: none;
     }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="popup" id="popup">
-    <p>YANG BUAT PIKET BANG TANTO</p>
-  </div>
+
+  <div class="popup" id="popup">YANG BUAT PIKET BANG TANTO</div>
 
   <h1>Jadwal Piket Mingguan</h1>
   <div class="grid">
-    <!-- Semua card seperti sebelumnya -->
     <div class="card" data-hari="Sabtu">
       <div class="hari">Sabtu</div>
-      <div class="nama">
-        <ul><li>Risal</li><li>Trisna</li><li>Ibnu</li></ul>
-      </div>
+      <div class="nama"><ul><li>Risal</li><li>Trisna</li><li>Ibnu</li></ul></div>
     </div>
     <div class="card" data-hari="Minggu">
       <div class="hari">Minggu</div>
-      <div class="nama">
-        <ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul>
-      </div>
+      <div class="nama"><ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul></div>
     </div>
     <div class="card" data-hari="Senin">
       <div class="hari">Senin</div>
-      <div class="nama">
-        <ul><li>Ahmad</li><li>Ardi</li><li>Risal</li></ul>
-      </div>
+      <div class="nama"><ul><li>Ahmad</li><li>Ardi</li><li>Risal</li></ul></div>
     </div>
     <div class="card" data-hari="Selasa">
       <div class="hari">Selasa</div>
-      <div class="nama">
-        <ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul>
-      </div>
+      <div class="nama"><ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul></div>
     </div>
     <div class="card" data-hari="Rabu">
       <div class="hari">Rabu</div>
-      <div class="nama">
-        <ul><li>Jangkung</li><li>Ibnu</li><li>Insan</li></ul>
-      </div>
+      <div class="nama"><ul><li>Jangkung</li><li>Ibnu</li><li>Insan</li></ul></div>
     </div>
     <div class="card" data-hari="Kamis">
       <div class="hari">Kamis</div>
-      <div class="nama">
-        <ul><li>Tanto</li><li>Ardi</li><li>Insan</li></ul>
-      </div>
+      <div class="nama"><ul><li>Tanto</li><li>Ardi</li><li>Insan</li></ul></div>
     </div>
     <div class="card" data-hari="Jum'at">
       <div class="hari">Jum'at</div>
-      <div class="nama">
-        <ul><li>Semuanya</li></ul>
-      </div>
+      <div class="nama"><ul><li>Semuanya</li></ul></div>
     </div>
   </div>
 
   <footer>
-    <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama dibagi adil dan sistematis.  
-    Kalau merasa berat, silakan nginep di hotel atau kost sendiri — jangan ganggu sistem yang udah jalan.</p>
+    <p><strong>Note:</strong> Jadwal ini disusun dengan adil.  
+    Kalau ada yang bilang ini asal-asalan, mungkin belum tahu prosesnya.  
+    Kalau merasa berat, ya silakan ngekost atau tidur di hotel, Bang.</p>
   </footer>
 
   <script>
-    // Highlight hari ini
     const hariMap = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
     const today = new Date().getDay();
     const hariIni = hariMap[today];
+
     document.querySelectorAll('.card').forEach(card => {
       if (card.dataset.hari === hariIni) {
         card.classList.add('today');
       }
     });
 
-    // Popup muncul otomatis dan hilang setelah 3 detik
+    // Tampilkan popup lalu hilangkan otomatis
     window.addEventListener("DOMContentLoaded", () => {
       const popup = document.getElementById("popup");
-      setTimeout(() => {
-        popup.classList.add("hidden");
-      }, 3000);
+      setTimeout(() => popup.classList.add("hidden"), 2500);
     });
   </script>
+
 </body>
 </html>
