@@ -76,13 +76,33 @@
     .hari {
       font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.7rem;
       color: var(--highlight);
     }
 
     .nama {
       font-size: 0.95rem;
       color: #ddd;
+    }
+
+    .nama ul {
+      list-style: disc;
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid var(--accent);
+      padding-top: 1rem;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    footer strong {
+      color: var(--today);
     }
 
     @media (max-width: 500px) {
@@ -97,33 +117,77 @@
   <div class="grid">
     <div class="card" data-hari="Sabtu">
       <div class="hari">Sabtu</div>
-      <div class="nama">Risal, Trisna, Ibnu</div>
+      <div class="nama">
+        <ul>
+          <li>Risal</li>
+          <li>Trisna</li>
+          <li>Ibnu</li>
+        </ul>
+      </div>
     </div>
     <div class="card" data-hari="Minggu">
       <div class="hari">Minggu</div>
-      <div class="nama">Ahmad, Kidut, Jangkung</div>
+      <div class="nama">
+        <ul>
+          <li>Ahmad</li>
+          <li>Kidut</li>
+          <li>Jangkung</li>
+        </ul>
+      </div>
     </div>
     <div class="card" data-hari="Senin">
       <div class="hari">Senin</div>
-      <div class="nama">Ahmad, Ardi, Risal</div>
+      <div class="nama">
+        <ul>
+          <li>Ahmad</li>
+          <li>Ardi</li>
+          <li>Risal</li>
+        </ul>
+      </div>
     </div>
     <div class="card" data-hari="Selasa">
       <div class="hari">Selasa</div>
-      <div class="nama">Tanto, Trisna, Kidut</div>
+      <div class="nama">
+        <ul>
+          <li>Tanto</li>
+          <li>Trisna</li>
+          <li>Kidut</li>
+        </ul>
+      </div>
     </div>
     <div class="card" data-hari="Rabu">
       <div class="hari">Rabu</div>
-      <div class="nama">Jangkung, Ibnu, Insan</div>
+      <div class="nama">
+        <ul>
+          <li>Jangkung</li>
+          <li>Ibnu</li>
+          <li>Insan</li>
+        </ul>
+      </div>
     </div>
     <div class="card" data-hari="Kamis">
       <div class="hari">Kamis</div>
-      <div class="nama">Tanto, Ardi, Insan</div>
+      <div class="nama">
+        <ul>
+          <li>Tanto</li>
+          <li>Ardi</li>
+          <li>Insan</li>
+        </ul>
+      </div>
     </div>
     <div class="card" data-hari="Jum'at">
       <div class="hari">Jum'at</div>
-      <div class="nama">Semuanya</div>
+      <div class="nama">
+        <ul>
+          <li>Semuanya</li>
+        </ul>
+      </div>
     </div>
   </div>
+
+  <footer>
+    <p><strong>Note:</strong> Ini bukan asal tempel nama. Jadwal ini disusun dengan pembagian adil dan sistematis. Kalau masih dibilang asal-asalan, mungkin belum lihat <i>prosesnya</i>.</p>
+  </footer>
 
   <script>
     const hariMap = [
