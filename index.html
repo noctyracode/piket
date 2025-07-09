@@ -241,11 +241,13 @@
         card.className = "card" + (hari === hariIni ? " today" : "");
 
         const namaFormatted = namaList.map(nama => {
-          if (["Tanto", "Insan"].includes(nama)) {
-            return `<li class='verified'>${nama}<img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified'></li>`;
-          } else {
-            return `<li>${nama}</li>`;
-          }
+          const isVerified = (nama === "Tanto" || nama === "Insan");
+          return `
+            <li>
+              <span class="${isVerified ? 'verified' : ''}">
+                ${nama}${isVerified ? ` <img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified'>` : ''}
+              </span>
+            </li>`;
         });
 
         card.innerHTML = `<div class="hari">${hari}</div><div class="nama"><ul>${namaFormatted.join('')}</ul></div>`;
