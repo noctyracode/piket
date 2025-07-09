@@ -116,6 +116,17 @@
       color: var(--accent);
     }
 
+    .verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .verified img {
+      width: 16px;
+      height: 16px;
+    }
+
     footer {
       margin-top: 3rem;
       font-size: 0.95rem;
@@ -228,7 +239,16 @@
 
         const card = document.createElement("div");
         card.className = "card" + (hari === hariIni ? " today" : "");
-        card.innerHTML = `<div class="hari">${hari}</div><div class="nama"><ul>${namaList.map(n => `<li>${n}</li>`).join('')}</ul></div>`;
+
+        const namaFormatted = namaList.map(nama => {
+          if (["Tanto", "Insan"].includes(nama)) {
+            return `<li class='verified'>${nama}<img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified'></li>`;
+          } else {
+            return `<li>${nama}</li>`;
+          }
+        });
+
+        card.innerHTML = `<div class="hari">${hari}</div><div class="nama"><ul>${namaFormatted.join('')}</ul></div>`;
         grid.appendChild(card);
       }
     }
@@ -242,3 +262,5 @@
   </script>
 </body>
 </html>
+
+  
