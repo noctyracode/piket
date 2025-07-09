@@ -4,21 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jadwal Piket Futuristik</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0e0e0e;
-      --card: rgba(255, 255, 255, 0.05);
+      --card: rgba(255, 255, 255, 0.07);
       --text: #ffffff;
-      --highlight: #ffffff;
-      --glass: rgba(255, 255, 255, 0.08);
+      --accent: #00f5d4;
+      --glass: rgba(255, 255, 255, 0.1);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Outfit', sans-serif;
       background-color: var(--bg);
       color: var(--text);
       display: flex;
@@ -26,80 +29,70 @@
       align-items: center;
       padding: 2rem 1rem;
       min-height: 100vh;
+      background-image: linear-gradient(135deg, #0e0e0e 0%, #1e1e1e 100%);
     }
 
     h1 {
-      font-size: 2.4rem;
-      margin-bottom: 1.2rem;
+      font-size: 2.6rem;
+      margin-bottom: 1.8rem;
       font-weight: 700;
-      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
     }
 
     .search-box {
       margin-bottom: 2rem;
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
+      position: relative;
     }
 
     .search-box input {
       width: 100%;
-      padding: 0.8rem 1rem;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      background: var(--glass);
-      backdrop-filter: blur(6px);
-      color: var(--text);
+      padding: 0.9rem 1.2rem;
       font-size: 1rem;
-    }
-
-    .search-result {
-      margin-top: 1rem;
-      text-align: center;
-      color: #ccc;
+      border-radius: 14px;
+      border: 1px solid var(--accent);
+      background: var(--glass);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      gap: 2rem;
       width: 100%;
       max-width: 1100px;
     }
 
     .card {
       background: var(--card);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 1.8rem;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      backdrop-filter: blur(6px);
+      box-shadow: 0 0 20px rgba(0, 255, 200, 0.1);
       transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+      transform: scale(1);
     }
 
     .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 20px rgba(255,255,255,0.08);
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(0, 255, 200, 0.2);
     }
 
     .card.today {
-      border: 2px solid var(--highlight);
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-
-    .card.highlight {
-      border: 2px solid var(--highlight);
-      box-shadow: 0 0 25px rgba(255,255,255,0.4);
-    }
-
-    .card.hidden {
-      display: none !important;
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 25px var(--accent);
     }
 
     .hari {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 0.8rem;
+      color: var(--accent);
     }
 
     .nama ul {
@@ -109,7 +102,7 @@
     }
 
     .nama li {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: #ddd;
       margin-bottom: 0.4rem;
       padding-left: 1rem;
@@ -117,10 +110,10 @@
     }
 
     .nama li::before {
-      content: '▸';
+      content: '>'; 
       position: absolute;
       left: 0;
-      color: #888;
+      color: var(--accent);
     }
 
     footer {
@@ -128,165 +121,64 @@
       font-size: 0.95rem;
       color: #aaa;
       border-top: 1px solid #333;
-      padding-top: 1rem;
+      padding-top: 1.5rem;
       text-align: center;
       max-width: 800px;
-      opacity: 0.7;
-    }
-
-    /* Popup */
-    .popup-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .popup-box {
-      background: #ffffff;
-      color: #000000;
-      padding: 3rem 2rem;
-      border-radius: 16px;
-      text-align: center;
-      font-weight: bold;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-    }
-
-    .popup-close {
-      position: absolute;
-      top: 10px;
-      right: 14px;
-      font-size: 1.4rem;
-      background: none;
-      border: none;
-      color: #888;
-      cursor: pointer;
-    }
-
-    .hidden-popup {
-      display: none;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #222;
-      color: #fff;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      transform: translateY(20px);
-      z-index: 10000;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+      opacity: 0.6;
     }
   </style>
 </head>
 <body>
 
-  <!-- Popup -->
-  <div class="popup-overlay" id="popup">
-    <div class="popup-box">
-      <button class="popup-close" onclick="closePopup()">✖</button>
-      <p>YANG BUAT PIKET BANG TANTO</p>
-    </div>
-  </div>
-
   <h1>Jadwal Piket Mingguan</h1>
 
   <div class="search-box">
     <input type="text" id="searchInput" placeholder="Cari nama..." oninput="cariNama()" />
-    <div id="searchResult" class="search-result"></div>
   </div>
 
   <div class="grid" id="jadwalGrid">
-    <div class="card" data-hari="Sabtu"><div class="hari">Sabtu</div><div class="nama"><ul><li>Insan</li><li>Trisna</li><li>Ibnu</li></ul></div></div>
-    <div class="card" data-hari="Minggu"><div class="hari">Minggu</div><div class="nama"><ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul></div></div>
-    <div class="card" data-hari="Senin"><div class="hari">Senin</div><div class="nama"><ul><li>Insan</li><li>Ardi</li><li>Risal</li><li>Bolang</li></ul></div></div>
-    <div class="card" data-hari="Selasa"><div class="hari">Selasa</div><div class="nama"><ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul></div></div>
-    <div class="card" data-hari="Rabu"><div class="hari">Rabu</div><div class="nama"><ul><li>Jangkung</li><li>Ibnu</li><li>Risal</li></ul></div></div>
-    <div class="card" data-hari="Kamis"><div class="hari">Kamis</div><div class="nama"><ul><li>Tanto</li><li>Ardi</li><li>Ahmad</li><li>Bolang</li></ul></div></div>
-    <div class="card" data-hari="Jum'at"><div class="hari">Jum'at</div><div class="nama"><ul><li>Risal</li><li>Trisna</li><li>Ibnu</li><li>Ahmad</li><li>Kidut</li><li>Jangkung</li><li>Ardi</li><li>Tanto</li><li>Insan</li><li>Bolang</li></ul></div></div>
+    <!-- Kartu Hari dan Nama akan di-generate dari script -->
   </div>
 
   <footer>
-    <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama dibagi adil & sistematis.  
-    Kalau keberatan, silakan piket sendiri atau nginep di tempat lain.</p>
+    <p><strong>Note:</strong> Jadwal disusun dengan sistem adil & terstruktur. Silakan hubungi Bang Tanto kalau ada pertanyaan.</p>
   </footer>
 
-  <div id="toast" class="toast">Nama tidak ditemukan dalam jadwal.</div>
-
   <script>
-    const hariMap = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+    const dataJadwal = {
+      "Sabtu": ["Insan", "Trisna", "Ibnu"],
+      "Minggu": ["Ahmad", "Kidut", "Jangkung"],
+      "Senin": ["Insan", "Ardi", "Risal", "Bolang"],
+      "Selasa": ["Tanto", "Trisna", "Kidut"],
+      "Rabu": ["Jangkung", "Ibnu", "Risal"],
+      "Kamis": ["Tanto", "Ardi", "Ahmad", "Bolang"],
+      "Jum'at": ["Risal", "Trisna", "Ibnu", "Ahmad", "Kidut", "Jangkung", "Ardi", "Tanto", "Insan", "Bolang"]
+    };
+
+    const hariMap = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"]
     const today = new Date().getDay();
     const hariIni = hariMap[today];
-    document.querySelectorAll('.card').forEach(card => {
-      if (card.dataset.hari === hariIni) card.classList.add('today');
-    });
+    const grid = document.getElementById("jadwalGrid");
 
-    function closePopup() {
-      document.getElementById("popup").classList.add("hidden-popup");
-    }
+    function renderCards(filter = "") {
+      grid.innerHTML = "";
+      for (const [hari, namaList] of Object.entries(dataJadwal)) {
+        const match = filter === "" || namaList.some(n => n.toLowerCase().includes(filter.toLowerCase()));
+        if (!match) continue;
 
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 3000);
+        const card = document.createElement("div");
+        card.className = "card" + (hari === hariIni ? " today" : "");
+        card.innerHTML = `<div class="hari">${hari}</div><div class="nama"><ul>${namaList.map(n => `<li>${n}</li>`).join('')}</ul></div>`;
+        grid.appendChild(card);
+      }
     }
 
     function cariNama() {
-      const input = document.getElementById("searchInput").value.toLowerCase().trim();
-      const cards = document.querySelectorAll('.card');
-      const hasil = [];
-
-      if (input === "") {
-        document.getElementById("searchResult").innerText = "";
-        cards.forEach(c => c.classList.remove("highlight", "hidden"));
-        return;
-      }
-
-      cards.forEach(card => {
-        const hari = card.dataset.hari;
-        const lis = card.querySelectorAll("li");
-        let match = false;
-        lis.forEach(li => {
-          if (li.innerText.toLowerCase().includes(input)) match = true;
-        });
-
-        if (match) {
-          hasil.push(hari);
-          card.classList.remove("hidden");
-          card.classList.add("highlight");
-        } else {
-          card.classList.remove("highlight");
-          card.classList.add("hidden");
-        }
-      });
-
-      const resultDiv = document.getElementById("searchResult");
-      if (hasil.length > 0) {
-        resultDiv.innerText = `Nama ditemukan di hari: ${hasil.join(", ")}`;
-      } else {
-        resultDiv.innerText = "";
-        showToast("Nama tidak ditemukan dalam jadwal.");
-      }
+      const val = document.getElementById("searchInput").value;
+      renderCards(val);
     }
+
+    renderCards();
   </script>
 </body>
 </html>
