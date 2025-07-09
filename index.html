@@ -99,7 +99,7 @@
       position: relative;
     }
     .nama li::before {
-      content: '>'; 
+      content: '>';
       position: absolute;
       left: 0;
       color: var(--accent);
@@ -126,73 +126,35 @@
       max-width: 800px;
       opacity: 0.6;
     }
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      flex-direction: column;
-    }
-    .popup-logo-box img {
-      width: 80px;
-    }
-    .popup-box {
-      background: #fff;
-      color: #000;
-      padding: 2rem;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 420px;
-      text-align: center;
-    }
-    .popup-box button {
-      margin-top: 1.5rem;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      background: #000;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
     .refresh-btn {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      background: #00f5d4;
-      color: black;
-      width: 50px;
-      height: 50px;
-      font-size: 24px;
-      font-weight: bold;
+      background: var(--accent);
+      width: 56px;
+      height: 56px;
       border: none;
       border-radius: 50%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
       cursor: pointer;
-      transition: transform 0.4s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
     }
-    .refresh-btn.rotate {
+    .refresh-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: #000;
+      transition: transform 0.6s ease-in-out;
+    }
+    .refresh-btn.rotate svg {
       transform: rotate(360deg);
     }
   </style>
 </head>
 <body>
-  <div class="popup-overlay" id="popup">
-    <div class="popup-logo-box">
-      <img src="https://noctyracode.github.io/piket/1751183175865.png" alt="Logo">
-    </div>
-    <div class="popup-box">
-      <p><strong>Perhatian:</strong><br>Jadwal piket ini bersifat wajib. Jika ada kendala, hubungi Bang Tanto.</p>
-      <button onclick="document.getElementById('popup').style.display='none'">Mengerti</button>
-    </div>
-  </div>
 
   <h1>Jadwal Piket Mingguan</h1>
   <div class="search-box">
@@ -201,11 +163,12 @@
   <div class="grid" id="jadwalGrid"></div>
   <footer>
     <p><strong>Note:</strong> Jadwal disusun adil & terstruktur.</p>
-    <p><strong>Dibuat oleh:</strong> seseorang yang bekerja saat yang lain cuma berkomentar.<br>
-    Karena bukan semua orang bisa tahan dimaki saat mengerjakan sesuatu sendirian.</p>
   </footer>
 
-  <button class="refresh-btn" onclick="refreshPage(this)">⟳</button>
+  <!-- Tombol Refresh -->
+  <button class="refresh-btn" onclick="refreshPage(this)" aria-label="Refresh">
+    <svg viewBox="0 0 24 24"><path d="M17.65 6.35a7.95 7.95 0 00-11.3 0l-1.3-1.3v5h5l-2.1-2.1a5.996 5.996 0 018.48 8.48 6 6 0 01-10.18-2.82H4.03c.5 4.28 4.17 7.58 8.47 7.58 4.69 0 8.5-3.81 8.5-8.5a8.466 8.466 0 00-2.35-5.93z"/></svg>
+  </button>
 
   <script>
     const dataJadwal = {
@@ -253,55 +216,7 @@
       btn.classList.add("rotate");
       setTimeout(() => {
         location.reload();
-      }, 500);
-    }
-  </script>
-
-  <script>
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const installBtn = document.createElement('button');
-      installBtn.textContent = '📲 Install Aplikasi Jadwal';
-      installBtn.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #00f5d4;
-        color: black;
-        padding: 10px 16px;
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        z-index: 9999;
-        font-weight: bold;
-        cursor: pointer;`;
-      installBtn.onclick = async () => {
-        installBtn.remove();
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-      };
-      document.body.appendChild(installBtn);
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/piket/sw.js').then(reg => {
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              const updateBar = document.createElement('div');
-              updateBar.innerHTML = `
-                <div style="position:fixed;top:0;left:0;right:0;background:#00f5d4;color:#000;padding:12px;text-align:center;z-index:9999;">
-                  🔄 Aplikasi telah diperbarui. <button style="margin-left:10px;padding:6px 12px;" onclick="location.reload()">Muat Ulang</button>
-                </div>`;
-              document.body.appendChild(updateBar);
-            }
-          });
-        });
-      });
+      }, 600);
     }
   </script>
 </body>
