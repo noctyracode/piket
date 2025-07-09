@@ -69,11 +69,21 @@
       padding: 1.5rem;
       border-left: 4px solid var(--border);
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      transition: all 0.3s ease;
     }
 
     .card.today {
       border-left-color: var(--today);
       box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+    }
+
+    .card.highlight {
+      border-left-color: #fff;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+    }
+
+    .card.hidden {
+      display: none !important;
     }
 
     .hari {
@@ -147,7 +157,7 @@
       border: none;
     }
 
-    .hidden {
+    .hidden-popup {
       display: none;
     }
   </style>
@@ -237,35 +247,49 @@
       }
     });
 
-    // Popup
+    // Tutup popup
     function closePopup() {
-      document.getElementById("popup").classList.add("hidden");
+      document.getElementById("popup").classList.add("hidden-popup");
     }
 
-    // Fitur Cari Nama
+    // Cari dan filter
     function cariNama() {
       const input = document.getElementById("searchInput").value.toLowerCase().trim();
       const cards = document.querySelectorAll('.card');
-      const hasil = new Set();
+      const hasil = [];
 
       if (input === "") {
         document.getElementById("searchResult").innerText = "";
+        cards.forEach(c => {
+          c.classList.remove("highlight", "hidden");
+        });
         return;
       }
 
       cards.forEach(card => {
         const hari = card.dataset.hari;
         const lis = card.querySelectorAll("li");
+        let match = false;
+
         lis.forEach(li => {
           if (li.innerText.toLowerCase().includes(input)) {
-            hasil.add(hari);
+            match = true;
           }
         });
+
+        if (match) {
+          hasil.push(hari);
+          card.classList.remove("hidden");
+          card.classList.add("highlight");
+        } else {
+          card.classList.remove("highlight");
+          card.classList.add("hidden");
+        }
       });
 
       const resultDiv = document.getElementById("searchResult");
-      if (hasil.size > 0) {
-        resultDiv.innerText = `Nama ditemukan di hari: ${[...hasil].join(", ")}`;
+      if (hasil.length > 0) {
+        resultDiv.innerText = `Nama ditemukan di hari: ${hasil.join(", ")}`;
       } else {
         resultDiv.innerText = `Nama tidak ditemukan dalam jadwal.`;
       }
