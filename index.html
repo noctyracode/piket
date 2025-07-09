@@ -10,14 +10,11 @@
       --bg: #0e0e0e;
       --card: rgba(255, 255, 255, 0.05);
       --text: #ffffff;
-      --border: #444;
       --highlight: #ffffff;
       --glass: rgba(255, 255, 255, 0.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -35,7 +32,6 @@
       font-size: 2.4rem;
       margin-bottom: 1.2rem;
       font-weight: 700;
-      letter-spacing: 1px;
       text-transform: uppercase;
     }
 
@@ -43,33 +39,24 @@
       margin-bottom: 2rem;
       width: 100%;
       max-width: 400px;
-      position: relative;
     }
 
     .search-box input {
       width: 100%;
       padding: 0.8rem 1rem;
-      font-size: 1rem;
       border-radius: 12px;
       border: none;
       outline: none;
       background: var(--glass);
       backdrop-filter: blur(6px);
       color: var(--text);
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(255,255,255,0.05);
-    }
-
-    .search-box input:focus {
-      box-shadow: 0 0 12px rgba(255,255,255,0.2);
+      font-size: 1rem;
     }
 
     .search-result {
       margin-top: 1rem;
-      font-size: 1rem;
-      color: #ccc;
       text-align: center;
-      min-height: 1.5em;
+      color: #ccc;
     }
 
     .grid {
@@ -88,7 +75,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       backdrop-filter: blur(6px);
       transition: all 0.3s ease;
-      transform: scale(1);
     }
 
     .card:hover {
@@ -114,9 +100,6 @@
       font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #fff;
     }
 
     .nama ul {
@@ -148,7 +131,6 @@
       padding-top: 1rem;
       text-align: center;
       max-width: 800px;
-      line-height: 1.5;
       opacity: 0.7;
     }
 
@@ -170,12 +152,11 @@
       color: #000000;
       padding: 3rem 2rem;
       border-radius: 16px;
-      box-shadow: 0 0 30px rgba(255,255,255,0.3);
-      position: relative;
-      max-width: 90%;
-      width: 400px;
       text-align: center;
       font-weight: bold;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
     }
 
     .popup-close {
@@ -183,20 +164,36 @@
       top: 10px;
       right: 14px;
       font-size: 1.4rem;
-      color: #888;
-      cursor: pointer;
       background: none;
       border: none;
+      color: #888;
+      cursor: pointer;
     }
 
     .hidden-popup {
       display: none;
     }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.6rem;
-      }
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #222;
+      color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(20px);
+      z-index: 10000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
   </style>
 </head>
@@ -218,47 +215,21 @@
   </div>
 
   <div class="grid" id="jadwalGrid">
-    <!-- Card Hari & Nama -->
-    <!-- Format Hari + data-hari + nama -->
-    <!-- Kamu bisa menambahkan nama baru di bagian ini -->
-    <div class="card" data-hari="Sabtu">
-      <div class="hari">Sabtu</div>
-      <div class="nama"><ul><li>Insan</li><li>Trisna</li><li>Ibnu</li></ul></div>
-    </div>
-    <div class="card" data-hari="Minggu">
-      <div class="hari">Minggu</div>
-      <div class="nama"><ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul></div>
-    </div>
-    <div class="card" data-hari="Senin">
-      <div class="hari">Senin</div>
-      <div class="nama"><ul><li>Insan</li><li>Ardi</li><li>Risal</li><li>Bolang</li></ul></div>
-    </div>
-    <div class="card" data-hari="Selasa">
-      <div class="hari">Selasa</div>
-      <div class="nama"><ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul></div>
-    </div>
-    <div class="card" data-hari="Rabu">
-      <div class="hari">Rabu</div>
-      <div class="nama"><ul><li>Jangkung</li><li>Ibnu</li><li>Risal</li></ul></div>
-    </div>
-    <div class="card" data-hari="Kamis">
-      <div class="hari">Kamis</div>
-      <div class="nama"><ul><li>Tanto</li><li>Ardi</li><li>Ahmad</li><li>Bolang</li></ul></div>
-    </div>
-    <div class="card" data-hari="Jum'at">
-      <div class="hari">Jum'at</div>
-      <div class="nama">
-        <ul><li>Risal</li><li>Trisna</li><li>Ibnu</li><li>Ahmad</li>
-        <li>Kidut</li><li>Jangkung</li><li>Ardi</li><li>Tanto</li>
-        <li>Insan</li><li>Bolang</li></ul>
-      </div>
-    </div>
+    <div class="card" data-hari="Sabtu"><div class="hari">Sabtu</div><div class="nama"><ul><li>Insan</li><li>Trisna</li><li>Ibnu</li></ul></div></div>
+    <div class="card" data-hari="Minggu"><div class="hari">Minggu</div><div class="nama"><ul><li>Ahmad</li><li>Kidut</li><li>Jangkung</li></ul></div></div>
+    <div class="card" data-hari="Senin"><div class="hari">Senin</div><div class="nama"><ul><li>Insan</li><li>Ardi</li><li>Risal</li><li>Bolang</li></ul></div></div>
+    <div class="card" data-hari="Selasa"><div class="hari">Selasa</div><div class="nama"><ul><li>Tanto</li><li>Trisna</li><li>Kidut</li></ul></div></div>
+    <div class="card" data-hari="Rabu"><div class="hari">Rabu</div><div class="nama"><ul><li>Jangkung</li><li>Ibnu</li><li>Risal</li></ul></div></div>
+    <div class="card" data-hari="Kamis"><div class="hari">Kamis</div><div class="nama"><ul><li>Tanto</li><li>Ardi</li><li>Ahmad</li><li>Bolang</li></ul></div></div>
+    <div class="card" data-hari="Jum'at"><div class="hari">Jum'at</div><div class="nama"><ul><li>Risal</li><li>Trisna</li><li>Ibnu</li><li>Ahmad</li><li>Kidut</li><li>Jangkung</li><li>Ardi</li><li>Tanto</li><li>Insan</li><li>Bolang</li></ul></div></div>
   </div>
 
   <footer>
     <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama dibagi adil & sistematis.  
     Kalau keberatan, silakan piket sendiri atau nginep di tempat lain.</p>
   </footer>
+
+  <div id="toast" class="toast">Nama tidak ditemukan dalam jadwal.</div>
 
   <script>
     const hariMap = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
@@ -272,6 +243,13 @@
       document.getElementById("popup").classList.add("hidden-popup");
     }
 
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
     function cariNama() {
       const input = document.getElementById("searchInput").value.toLowerCase().trim();
       const cards = document.querySelectorAll('.card');
@@ -279,9 +257,7 @@
 
       if (input === "") {
         document.getElementById("searchResult").innerText = "";
-        cards.forEach(c => {
-          c.classList.remove("highlight", "hidden");
-        });
+        cards.forEach(c => c.classList.remove("highlight", "hidden"));
         return;
       }
 
@@ -304,9 +280,12 @@
       });
 
       const resultDiv = document.getElementById("searchResult");
-      resultDiv.innerText = hasil.length > 0
-        ? `Nama ditemukan di hari: ${hasil.join(", ")}`
-        : "Nama tidak ditemukan dalam jadwal.";
+      if (hasil.length > 0) {
+        resultDiv.innerText = `Nama ditemukan di hari: ${hasil.join(", ")}`;
+      } else {
+        resultDiv.innerText = "";
+        showToast("Nama tidak ditemukan dalam jadwal.");
+      }
     }
   </script>
 </body>
