@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jadwal Piket Futuristik</title>
-  <link rel="manifest" href="https://noctyracode.github.io/piket/manifest.json" />
+  <link rel="manifest" href="/piket/manifest.json" />
   <meta name="theme-color" content="#00f5d4" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
@@ -15,13 +15,11 @@
       --accent: #00f5d4;
       --glass: rgba(255, 255, 255, 0.1);
     }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
       font-family: 'Outfit', sans-serif;
       background-color: var(--bg);
@@ -33,7 +31,6 @@
       min-height: 100vh;
       background-image: linear-gradient(135deg, #0e0e0e 0%, #1e1e1e 100%);
     }
-
     h1 {
       font-size: 2.6rem;
       margin-bottom: 1.8rem;
@@ -41,14 +38,12 @@
       letter-spacing: 1px;
       color: var(--accent);
     }
-
     .search-box {
       margin-bottom: 2rem;
       width: 100%;
       max-width: 420px;
       position: relative;
     }
-
     .search-box input {
       width: 100%;
       padding: 0.9rem 1.2rem;
@@ -60,7 +55,6 @@
       backdrop-filter: blur(10px);
       transition: 0.3s;
     }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -68,7 +62,6 @@
       width: 100%;
       max-width: 1100px;
     }
-
     .card {
       background: var(--card);
       border-radius: 20px;
@@ -79,30 +72,25 @@
       backdrop-filter: blur(8px);
       transform: scale(1);
     }
-
     .card:hover {
       transform: scale(1.03);
       box-shadow: 0 0 25px rgba(0, 255, 200, 0.2);
     }
-
     .card.today {
       border: 2px solid var(--accent);
       box-shadow: 0 0 25px var(--accent);
     }
-
     .hari {
       font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 0.8rem;
       color: var(--accent);
     }
-
     .nama ul {
       list-style: none;
       padding-left: 0;
       margin: 0;
     }
-
     .nama li {
       font-size: 1.05rem;
       color: #ddd;
@@ -110,20 +98,17 @@
       padding-left: 1rem;
       position: relative;
     }
-
     .nama li::before {
       content: '>'; 
       position: absolute;
       left: 0;
       color: var(--accent);
     }
-
     .verified {
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
     }
-
     .verified img {
       width: 16px;
       height: 16px;
@@ -131,7 +116,6 @@
       user-select: none;
       -webkit-user-drag: none;
     }
-
     footer {
       margin-top: 3rem;
       font-size: 0.95rem;
@@ -142,7 +126,6 @@
       max-width: 800px;
       opacity: 0.6;
     }
-
     .popup-overlay {
       position: fixed;
       top: 0;
@@ -156,16 +139,9 @@
       z-index: 9999;
       flex-direction: column;
     }
-
-    .popup-logo-box {
-      margin-bottom: -20px;
-    }
-
     .popup-logo-box img {
       width: 80px;
-      height: auto;
     }
-
     .popup-box {
       background: #fff;
       color: #000;
@@ -174,10 +150,7 @@
       width: 90%;
       max-width: 420px;
       text-align: center;
-      position: relative;
-      z-index: 10000;
     }
-
     .popup-box button {
       margin-top: 1.5rem;
       padding: 0.6rem 1.2rem;
@@ -188,36 +161,26 @@
       border-radius: 8px;
       cursor: pointer;
     }
-
-    .popup-box button:hover {
-      background: #222;
-    }
   </style>
 </head>
 <body>
-
   <div class="popup-overlay" id="popup">
     <div class="popup-logo-box">
       <img src="https://noctyracode.github.io/piket/1751183175865.png" alt="Logo">
     </div>
     <div class="popup-box">
-      <p><strong>Perhatian:</strong><br>
-      Jadwal piket ini bersifat wajib dan telah dibagi secara adil. Harap laksanakan dengan tanggung jawab.<br><br>
-      Jika ada kendala, segera hubungi Bang Tanto.</p>
+      <p><strong>Perhatian:</strong><br>Jadwal piket ini bersifat wajib. Jika ada kendala, hubungi Bang Tanto.</p>
       <button onclick="document.getElementById('popup').style.display='none'">Mengerti</button>
     </div>
   </div>
 
   <h1>Jadwal Piket Mingguan</h1>
-
   <div class="search-box">
     <input type="text" id="searchInput" placeholder="Cari nama..." oninput="cariNama()" />
   </div>
-
   <div class="grid" id="jadwalGrid"></div>
-
   <footer>
-    <p><strong>Note:</strong> Jadwal disusun dengan sistem adil & terstruktur. Silakan hubungi Bang Tanto kalau ada pertanyaan.</p>
+    <p><strong>Note:</strong> Jadwal disusun adil & terstruktur.</p>
   </footer>
 
   <script>
@@ -247,12 +210,7 @@
 
         const namaFormatted = namaList.map(nama => {
           const isVerified = (nama === "Tanto" || nama === "Insan");
-          return `
-            <li>
-              <span class="${isVerified ? 'verified' : ''}">
-                ${nama}${isVerified ? ` <img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified' draggable='false' oncontextmenu='return false'>` : ''}
-              </span>
-            </li>`;
+          return `<li><span class="${isVerified ? 'verified' : ''}">${nama}${isVerified ? ` <img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified' draggable='false' oncontextmenu='return false'>` : ''}</span></li>`;
         });
 
         card.innerHTML = `<div class="hari">${hari}</div><div class="nama"><ul>${namaFormatted.join('')}</ul></div>`;
@@ -270,16 +228,14 @@
 
   <script>
     let deferredPrompt;
-
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-
       const installBtn = document.createElement('button');
       installBtn.textContent = '📲 Install Aplikasi Jadwal';
       installBtn.style.cssText = `
         position: fixed;
-        bottom: 20px;
+        top: 20px;
         right: 20px;
         background: #00f5d4;
         color: black;
@@ -289,22 +245,32 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         z-index: 9999;
         font-weight: bold;
-        cursor: pointer;
-      `;
-
+        cursor: pointer;`;
       installBtn.onclick = async () => {
         installBtn.remove();
         deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
+        await deferredPrompt.userChoice;
         deferredPrompt = null;
       };
-
       document.body.appendChild(installBtn);
     });
 
-    // Register service worker untuk validasi PWA (tanpa cache)
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/piket/sw.js');
+      navigator.serviceWorker.register('/piket/sw.js').then(reg => {
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              const updateBar = document.createElement('div');
+              updateBar.innerHTML = `
+                <div style="position:fixed;top:0;left:0;right:0;background:#00f5d4;color:#000;padding:12px;text-align:center;z-index:9999;">
+                  🔄 Aplikasi telah diperbarui. <button style="margin-left:10px;padding:6px 12px;" onclick="location.reload()">Muat Ulang</button>
+                </div>`;
+              document.body.appendChild(updateBar);
+            }
+          });
+        });
+      });
     }
   </script>
 </body>
