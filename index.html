@@ -27,9 +27,32 @@
 
     h1 {
       font-size: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       font-weight: 600;
-      color: var(--text);
+    }
+
+    .search-box {
+      margin-bottom: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    .search-result {
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #ccc;
+      text-align: center;
     }
 
     .grid {
@@ -46,7 +69,6 @@
       padding: 1.5rem;
       border-left: 4px solid var(--border);
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease;
     }
 
     .card.today {
@@ -58,7 +80,6 @@
       font-size: 1.1rem;
       font-weight: bold;
       margin-bottom: 0.6rem;
-      color: var(--text);
     }
 
     .nama ul {
@@ -84,7 +105,7 @@
       line-height: 1.5;
     }
 
-    /* ===== Popup Styling ===== */
+    /* Popup */
     .popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -129,12 +150,6 @@
     .hidden {
       display: none;
     }
-
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.6rem;
-      }
-    }
   </style>
 </head>
 <body>
@@ -148,11 +163,19 @@
   </div>
 
   <h1>Jadwal Piket Mingguan</h1>
-  <div class="grid">
+
+  <!-- Pencarian -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Cari nama..." oninput="cariNama()" />
+    <div id="searchResult" class="search-result"></div>
+  </div>
+
+  <!-- Grid Card Jadwal -->
+  <div class="grid" id="jadwalGrid">
     <div class="card" data-hari="Sabtu">
       <div class="hari">Sabtu</div>
       <div class="nama">
-        <ul><li>Insan</li><li>Trisna</li><li>Ibnu</li></ul>
+        <ul><li>Risal</li><li>Trisna</li><li>Ibnu</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Minggu">
@@ -164,7 +187,7 @@
     <div class="card" data-hari="Senin">
       <div class="hari">Senin</div>
       <div class="nama">
-        <ul><li>Insan</li><li>Ardi</li><li>Risal</li><li>Bolang</li></ul>
+        <ul><li>Ahmad</li><li>Ardi</li><li>Risal</li><li>Bolang</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Selasa">
@@ -176,34 +199,28 @@
     <div class="card" data-hari="Rabu">
       <div class="hari">Rabu</div>
       <div class="nama">
-        <ul><li>Jangkung</li><li>Ibnu</li><li>Risal</li></ul>
+        <ul><li>Jangkung</li><li>Ibnu</li><li>Insan</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Kamis">
       <div class="hari">Kamis</div>
       <div class="nama">
-        <ul><li>Tanto</li><li>Ardi</li><li>Ahmad</li><li>Bolang</li></ul>
+        <ul><li>Tanto</li><li>Ardi</li><li>Insan</li><li>Bolang</li></ul>
       </div>
     </div>
     <div class="card" data-hari="Jum'at">
       <div class="hari">Jum'at</div>
       <div class="nama">
         <ul>
-          <li>Risal</li>
-          <li>Trisna</li>
-          <li>Ibnu</li>
-          <li>Ahmad</li>
-          <li>Kidut</li>
-          <li>Jangkung</li>
-          <li>Ardi</li>
-          <li>Tanto</li>
-          <li>Insan</li>
-          <li>Bolang</li>
+          <li>Risal</li><li>Trisna</li><li>Ibnu</li><li>Ahmad</li>
+          <li>Kidut</li><li>Jangkung</li><li>Ardi</li><li>Tanto</li>
+          <li>Insan</li><li>Bolang</li>
         </ul>
       </div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     <p><strong>Note:</strong> Jadwal ini bukan asal ditempel. Setiap nama dibagi adil & sistematis.  
     Kalau keberatan, silakan piket sendiri atau nginep di tempat lain.</p>
@@ -220,9 +237,38 @@
       }
     });
 
-    // Tutup popup
+    // Popup
     function closePopup() {
       document.getElementById("popup").classList.add("hidden");
+    }
+
+    // Fitur Cari Nama
+    function cariNama() {
+      const input = document.getElementById("searchInput").value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.card');
+      const hasil = new Set();
+
+      if (input === "") {
+        document.getElementById("searchResult").innerText = "";
+        return;
+      }
+
+      cards.forEach(card => {
+        const hari = card.dataset.hari;
+        const lis = card.querySelectorAll("li");
+        lis.forEach(li => {
+          if (li.innerText.toLowerCase().includes(input)) {
+            hasil.add(hari);
+          }
+        });
+      });
+
+      const resultDiv = document.getElementById("searchResult");
+      if (hasil.size > 0) {
+        resultDiv.innerText = `Nama ditemukan di hari: ${[...hasil].join(", ")}`;
+      } else {
+        resultDiv.innerText = `Nama tidak ditemukan dalam jadwal.`;
+      }
     }
   </script>
 </body>
