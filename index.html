@@ -125,6 +125,9 @@
     .verified img {
       width: 16px;
       height: 16px;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     footer {
@@ -245,7 +248,7 @@
           return `
             <li>
               <span class="${isVerified ? 'verified' : ''}">
-                ${nama}${isVerified ? ` <img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified'>` : ''}
+                ${nama}${isVerified ? ` <img src='https://noctyracode.github.io/piket/1752048351317.png' alt='verified' draggable='false' oncontextmenu='return false;'>` : ''}
               </span>
             </li>`;
         });
