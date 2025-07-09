@@ -55,6 +55,21 @@
       backdrop-filter: blur(10px);
       transition: 0.3s;
     }
+    .refresh-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #00f5d4;
+      color: black;
+      padding: 10px 14px;
+      border: none;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 9999;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -164,6 +179,8 @@
   </style>
 </head>
 <body>
+  <button class="refresh-btn" onclick="location.reload()">⟳</button>
+
   <div class="popup-overlay" id="popup">
     <div class="popup-logo-box">
       <img src="https://noctyracode.github.io/piket/1751183175865.png" alt="Logo">
@@ -179,8 +196,11 @@
     <input type="text" id="searchInput" placeholder="Cari nama..." oninput="cariNama()" />
   </div>
   <div class="grid" id="jadwalGrid"></div>
+
   <footer>
     <p><strong>Note:</strong> Jadwal disusun adil & terstruktur.</p>
+    <p><strong>Dibuat oleh:</strong> seseorang yang bekerja saat yang lain cuma berkomentar.<br>
+    Karena bukan semua orang bisa tahan dimaki saat mengerjakan sesuatu sendirian.</p>
   </footer>
 
   <script>
@@ -224,54 +244,6 @@
     }
 
     renderCards();
-  </script>
-
-  <script>
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const installBtn = document.createElement('button');
-      installBtn.textContent = '📲 Install Aplikasi Jadwal';
-      installBtn.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #00f5d4;
-        color: black;
-        padding: 10px 16px;
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        z-index: 9999;
-        font-weight: bold;
-        cursor: pointer;`;
-      installBtn.onclick = async () => {
-        installBtn.remove();
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
-        deferredPrompt = null;
-      };
-      document.body.appendChild(installBtn);
-    });
-
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/piket/sw.js').then(reg => {
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              const updateBar = document.createElement('div');
-              updateBar.innerHTML = `
-                <div style="position:fixed;top:0;left:0;right:0;background:#00f5d4;color:#000;padding:12px;text-align:center;z-index:9999;">
-                  🔄 Aplikasi telah diperbarui. <button style="margin-left:10px;padding:6px 12px;" onclick="location.reload()">Muat Ulang</button>
-                </div>`;
-              document.body.appendChild(updateBar);
-            }
-          });
-        });
-      });
-    }
   </script>
 </body>
 </html>
