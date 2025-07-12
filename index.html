@@ -153,7 +153,7 @@
       text-align: center;
     }
     .popup-box button {
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       padding: 0.6rem 1.2rem;
       font-size: 1rem;
       background: #000;
@@ -163,14 +163,21 @@
       cursor: pointer;
     }
     .popup-box a {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       margin-top: 10px;
       padding: 10px 16px;
       background: #00f5d4;
       color: #000;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 10px;
+      font-weight: 600;
       text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    .popup-box a:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -181,16 +188,18 @@
     </div>
     <div class="popup-box">
       <p><strong>Perhatian:</strong><br>Jadwal piket ini bersifat wajib. Jika ada kendala, hubungi Bang Tanto.</p>
-      <p style="margin-top: 1rem; font-size: 0.95rem; color: #444;">Agar tidak ribet, kamu bisa install aplikasinya:</p>
-      <a href="https://noctyracode.github.io/piket/Jadwal%20Piket.apk">📥 Download Aplikasi</a>
+      <p style="margin-top: 1rem; font-size: 0.95rem; color: #444;">
+        Agar tidak ribet, kamu bisa install aplikasinya di bawah ini:
+      </p>
+      <a href="https://noctyracode.github.io/piket/Jadwal%20Piket.apk">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="24" width="24" viewBox="0 0 24 24" stroke="#000" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+        <span>Download Aplikasi</span>
+      </a>
       <button onclick="document.getElementById('popup').style.display='none'">Mengerti</button>
     </div>
   </div>
-
-  <a href="https://noctyracode.github.io/piket/Jadwal%20Piket.apk" 
-     style="position: fixed; top: 20px; right: 20px; background: #00f5d4; color: black; padding: 10px 16px; border: none; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 9999; font-weight: bold; text-decoration: none;">
-    📲 Install Aplikasi Jadwal
-  </a>
 
   <h1>Jadwal Piket Mingguan</h1>
   <div class="search-box">
